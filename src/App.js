@@ -16,8 +16,8 @@ class Subject extends Component{
   render(){
     return ( // 하나의 최상의 태그만 가능함
       <header> 
-        <h1>WEB</h1>
-        world wide web
+        <h1>{this.props.title}</h1>
+        {this.props.sub}
       </header>
     );
   }
@@ -42,8 +42,8 @@ class Article extends Component{
   render(){
     return(
       <article>
-        <h2>HTML</h2>
-        HTML is HyperText Markup Language.
+        <h2>{this.props.title}</h2>
+        {this.props.contents}
       </article>
     )
   }
@@ -53,9 +53,10 @@ class App extends Component { // 컴포넌트를 만드는 코드
   render(){
     return (
       <div className="App">
-        <Subject></Subject>
+        <Subject title="WEB" sub="world wide web!"></Subject>
+        <Subject title="React" sub="For UI"></Subject>
         <Nav></Nav>
-        <Article></Article>
+        <Article title="HTML" contents="HTML is HyperText Markup Language."></Article>
       </div>
     );
   }
