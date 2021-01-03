@@ -1,5 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
+import Nav from './components/Nav.js'
+import Subject from './components/Subject.js'
+import Article from './components/Article.js'
 import { Component } from 'react';
 
 
@@ -12,50 +15,26 @@ import { Component } from 'react';
 //   );
 // }
 
-class Subject extends Component{
-  render(){
-    return ( // 하나의 최상의 태그만 가능함
-      <header> 
-        <h1>{this.props.title}</h1>
-        {this.props.sub}
-      </header>
-    );
-  }
-}
-
-
-class Nav extends Component{
-  render(){
-    return(
-      <nav>
-        <ul>
-            <li> <a href="1.html">HTML</a></li>
-            <li> <a href="2.html">CSS</a> </li>
-            <li> <a href="3.html">JavaScript</a> </li>
-        </ul>
-      </nav>
-    );
-  }
-}
-
-class Article extends Component{
-  render(){
-    return(
-      <article>
-        <h2>{this.props.title}</h2>
-        {this.props.contents}
-      </article>
-    )
-  }
-}
 
 class App extends Component { // 컴포넌트를 만드는 코드
-  render(){
+  constructor(props) { // render()보다 먼저 실행되면서 props를 초기화
+    super(props);
+    this.state = {
+      subject: { title: 'WEB', sub: 'World Wide Web!' },
+      contents:[
+        {id:1, title:'HTML', desc:'HTML is HyperText Markup Language'},
+        {id:2, title:'CSS', desc:'CSS is for design'},
+        {id:3, title:'JavaScript', desc:'JavaScript is for interactive'},
+      ]
+    }
+  }
+  render() {
     return (
       <div className="App">
-        <Subject title="WEB" sub="world wide web!"></Subject>
+        {/* state로부터 옴 */}
+        <Subject title={this.state.subject.title} sub={this.state.subject.sub}></Subject>
         <Subject title="React" sub="For UI"></Subject>
-        <Nav></Nav>
+        <Nav data={this.state.contents}></Nav>
         <Article title="HTML" contents="HTML is HyperText Markup Language."></Article>
       </div>
     );
