@@ -4,9 +4,12 @@ class Subject extends Component {
     render() {
         return ( // 하나의 최상의 태그만 가능함
             <header>
-                <h1><a href="/">{this.props.title}</a></h1>
+                <h1><a href="/" onClick={function(e){
+                    e.preventDefault();
+                    this.props.onChangePage(); //props로 전달된 onpage함수 호출후 받기
+                }.bind(this)}>{this.props.title}</a></h1>
                 {this.props.sub}
-            </header>
+            </header> 
         );
     }
 }
