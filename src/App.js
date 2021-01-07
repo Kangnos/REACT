@@ -4,17 +4,7 @@ import Nav from './components/Nav.js'
 import Subject from './components/Subject.js'
 import Article from './components/Article.js'
 import { Component } from 'react';
-
-
-// 함수식
-// function App() {
-//   return (
-//     <div className="App">
-//       Hello, React!!
-//     </div>
-//   );
-// }
-
+import Control from './components/control.js'; //.js는 생략 가능
 
 class App extends Component { // 컴포넌트를 만드는 코드
   constructor(props) { // render()보다 먼저 실행되면서 props를 초기화
@@ -65,8 +55,14 @@ class App extends Component { // 컴포넌트를 만드는 코드
           this.setState({
             mode:'read',
             selected_content_id:Number(id)
+          });
+        }.bind(this)}
+        data={this.state.contents}></Nav>
+        <Control onChangeMode={function(_mode){
+          this.setState({
+            mode:_mode
           })
-        }.bind(this)} data={this.state.contents}></Nav>
+        }.bind(this)}></Control>
         <Article title={_title} contents={_desc}></Article>
       </div>
     );
@@ -74,3 +70,8 @@ class App extends Component { // 컴포넌트를 만드는 코드
 }
 
 export default App;
+
+
+// props와 state의 차이점
+// props는 수정이 될 수 없으므로 상위 컴포넌트로 데이터를 전달할때는 event를 사용함.
+// state는 컴포넌트에서 setstate로 수정이 가능하다
