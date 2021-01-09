@@ -2,15 +2,16 @@ import logo from './logo.svg';
 import './App.css';
 import Nav from './components/Nav.js'
 import Subject from './components/Subject.js'
-import Article from './components/Article.js'
-import { Component } from 'react';
 import Control from './components/control.js'; //.js는 생략 가능
+import ReadContent from './components/ReadContent.js'
+import CreateContent from './components/CreateContent';
+import { Component } from 'react';
 
 class App extends Component { // 컴포넌트를 만드는 코드
   constructor(props) { // render()보다 먼저 실행되면서 props를 초기화
     super(props);
     this.state = {
-      mode:'read',
+      mode:'create',
       selected_content_id:null,
       subject: { title: 'WEB', sub: 'World Wide Web!' },
       welcome:{title:'Welcome', desc:'Hello React'},
@@ -22,10 +23,18 @@ class App extends Component { // 컴포넌트를 만드는 코드
     }
   }
   render() {
-    var _title, _desc = null;
+    //test
+    console.log("App render")
+
+    // 아래 if절들을 위한 변수들    
+    var _title, _desc, _article = null;
+
+    // mode값에 따라 다르게 작동하게 하는 if구문들
     if (this.state.mode === "welcome" || this.state.mode === "Welcome") {
+      this.state.selected_content_id = null;
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>
     }
     else if (this.state.mode === "read") {
       for (let i = 0; i < this.state.contents.length; i++) {
@@ -36,7 +45,14 @@ class App extends Component { // 컴포넌트를 만드는 코드
           _desc = data.desc;   
         }
       }
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>
     }
+    else if (this.state.mode === "create") {
+      this.state.selected_content_id = null;
+      _article = <CreateContent></CreateContent>
+    }
+
+    // UI 구현 부분
     return (
       <div className="App">
         {/* state로부터 옴 */}
@@ -54,7 +70,7 @@ class App extends Component { // 컴포넌트를 만드는 코드
           onChnagePage={function(id){
           this.setState({
             mode:'read',
-            selected_content_id:Number(id)
+            selected_content_id:Number(id) 
           });
         }.bind(this)}
         data={this.state.contents}></Nav>
@@ -63,7 +79,7 @@ class App extends Component { // 컴포넌트를 만드는 코드
             mode:_mode
           })
         }.bind(this)}></Control>
-        <Article title={_title} contents={_desc}></Article>
+        {_article}
       </div>
     );
   }
