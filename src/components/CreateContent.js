@@ -5,12 +5,14 @@ class CreateContent extends Component {
         return (
             <article>
                 <h2>Create</h2>
-                <form action="create_process" method = "post"
+                <form action="create_process" method = "post" autocomplete="off"
                     onSubmit={function(e){
                         console.log(e.value)
                         e.preventDefault();
-                        debugger;
-                        alert('submit')
+                        this.props.onSubmit(
+                            e.target.title.value,
+                            e.target.desc.value
+                        )
                     }.bind(this)}
                 >
                     <p><input type="text" name="title" placeholder="title"></input></p>

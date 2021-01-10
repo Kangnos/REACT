@@ -10,6 +10,8 @@ import { Component } from 'react';
 class App extends Component { // 컴포넌트를 만드는 코드
   constructor(props) { // render()보다 먼저 실행되면서 props를 초기화
     super(props);
+    this.max_content_id = 3; // 사용하는 정보일뿐 UI에 영향을 주지 않음. 즉 state로 안씀
+    console.log(this.max_content_id)
     this.state = {
       mode:'create',
       selected_content_id:null,
@@ -50,8 +52,15 @@ class App extends Component { // 컴포넌트를 만드는 코드
     else if (this.state.mode === "create") {
       this.state.selected_content_id = null;
       _article = <CreateContent onSubmit={function(_title, _desc){
+        this.max_content_id += 1
+        var _contents = this.state.contents.concat( // concat은 원본 데이터를 바꾸기 않으면서 데이터를 없앰. 그냥 push의 상위호환이라고 생각하자
+          {id:this.max_content_id, title:_title, desc:_desc}
+        )
+        this.setState({
+          contents:_contents
+        })
         // add content to this.state.content
-        
+        console.log(_title, _desc)
       }.bind(this)}></CreateContent>
     }
 
