@@ -49,7 +49,10 @@ class App extends Component { // 컴포넌트를 만드는 코드
     }
     else if (this.state.mode === "create") {
       this.state.selected_content_id = null;
-      _article = <CreateContent></CreateContent>
+      _article = <CreateContent onSubmit={function(_title, _desc){
+        // add content to this.state.content
+        
+      }.bind(this)}></CreateContent>
     }
 
     // UI 구현 부분
