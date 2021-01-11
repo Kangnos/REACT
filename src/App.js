@@ -53,9 +53,11 @@ class App extends Component { // 컴포넌트를 만드는 코드
       this.state.selected_content_id = null;
       _article = <CreateContent onSubmit={function(_title, _desc){
         this.max_content_id += 1
-        var _contents = this.state.contents.concat( // concat은 원본 데이터를 바꾸기 않으면서 데이터를 없앰. 그냥 push의 상위호환이라고 생각하자
-          {id:this.max_content_id, title:_title, desc:_desc}
-        )
+        // var _contents = this.state.contents.concat( // concat은 원본 데이터를 바꾸기 않으면서 데이터를 없앰. 그냥 push의 상위호환이라고 생각하자
+        //   {id:this.max_content_id, title:_title, desc:_desc}
+        // )
+        var newContents = Array.from(this.state.contents) // 배열을 바꾸고 싶을때 Array.from() 객체를 바꾸고 싶을땐 Array.assign()
+        var _contents = newContents.concat({id:this.max_content_id, title:_title, desc:_desc})
         this.setState({
           contents:_contents
         })
